@@ -23,7 +23,7 @@ Do not create more than one SPF1 record for a given domain. If you need more tha
 
 <call-out>
 
-You cannot have more than 10 DNS lookups in your SPF record.
+You cannot have more than 10 DNS lookups in your SPF record. (The "include", "a", "mx", "ptr", and "exists" mechanisms, and the "redirect" modifier count towards this limit.)
 
 </call-out>
 
@@ -48,7 +48,7 @@ v=spf1 a mx include:_spf.google.com include:spf.protection.outlook.com include:s
  	
 If you would rather not include SendGrid's SPF hostname lookup in your record, or perhaps you just have too many already, you can also choose to give permission to a specific IP address to send mail for your domain. This is accomplished using the ip4 mechanism.
 
-If you have a Silver or higher level package, you can choose to specify your dedicated IP address as a lookup, meaning that only mail coming from that particular IP address will be considered a permitted sender within SendGrid for that domain. An example of such an include looks like this:
+If you have a Pro or Premium plan, you can choose to specify your dedicated IP address as a lookup, meaning that only mail coming from that particular IP address will be considered a permitted sender within SendGrid for that domain. An example of such an include looks like this:
 
 ```
 v=spf1 a mx include:_spf.google.com include:spf.protection.outlook.com ip4:12.34.56.78 ~all
@@ -64,10 +64,10 @@ For more information on SPF best practices and syntax, check out [www.openspf.or
  	These are some tools that might be useful to you. We do not own or support these tools, so use them at your own risk. However,
 we hope that they are helpful.
 
- ### 	Record Flattening
- 	There is an experimental tool called the [dmarcian SPF Record Flattener](https://dmarcian.com/spf-survey/bitcointalk.org), which should be considered experimental. From their site: "[this tool] rewrites this record by removing duplicate netblocks, collapsing any overlapping netblocks, and using 0 DNS-querying mechanisms/modifiers."
+ ### 	SPF Record Flattening
+ 	Already at or near your 10 DNS look-ups? A company called 'dmarcian' provides the [SPF Record Flattener](https://dmarcian.com/spf-survey/) tool to provide organizations with a method to keep each SPF record less than 512 bytes and minimize the count of DNS queries. dmarcian indicates this is experimental. From their site: "[this tool] rewrites this record by removing duplicate netblocks, collapsing any overlapping netblocks, and using 0 DNS-querying mechanisms/modifiers." You will find your suggested flattened SPF records at the bottom of the page after running an SPF Survey.
 
-If you choose to use this functionality, we suggest that you test it extensively to make sure that your customers will receive your emails and their servers can look up your records properly.
+If you choose to use this implementation of SPF, we suggest that you test extensively to ensure your customers will receive your emails and their servers can look up your records properly.
 
  ### 	SPF Wizard
  	[The SPF Wizard](http://www.spfwizard.net/) is a browser based SPF record generation tool. Fill out the form and the site generates an SPF record for you.
